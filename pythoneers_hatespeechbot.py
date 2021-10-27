@@ -1,18 +1,33 @@
 import telebot
-#from preprocessing import
+from model_predict import predict
 
-bot = telebot.TeleBot("2090572506:AAEJatVb5sGq1ILgNIj5cldM5UJQMQNC0y8", parse_mode=None)
+from preprocessing import preprocess_text
 
-## for /start and /help commands
+bot = telebot.TeleBot(
+    "2090572506:AAEJatVb5sGq1ILgNIj5cldM5UJQMQNC0y8", parse_mode=None)
+
+# for /start and /help commands
+
+
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
-	bot.reply_to(message, "Howdy, how are you doing?")
+    bot.reply_to(message, "Enter a message and we'll predict if it's hateful or not.")
+
+
+@bot.message_handler(commands=['preprocess'])
+def send_welcome(message):
+    bot.reply_to(message, preprocess_text(message.text))
+
 
 @bot.message_handler(func=lambda m: True)
 def echo_all(message):
-	bot.reply_to(message, message.text)
-	
-	## not replying to the msg
-	bot.send_message(message.chat.id, "it's working!!")
+    toReturn = predict(message.text)
+    if toReturn == 1:
+        bot.reply_to(message, "Your message is hate")
+    else:
+        bot.reply_to(message, "Your message is fine")
+
+    # not replying to the toReturn	# bot.send_message(message.chat.id, "it's working!!")
+
 
 bot.infinity_polling()
