@@ -2,4 +2,3 @@ pyTelegramBotAPI
 numpy
 tensorflow
 nltk
-pickle
