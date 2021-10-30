@@ -4,7 +4,7 @@ from model_predict import predict
 from preprocessing import preprocess_text
 
 bot = telebot.TeleBot(
-    "2090572506:AAEJatVb5sGq1ILgNIj5cldM5UJQMQNC0y8", parse_mode=None)
+    "2087987681:AAG813Ais8YRNy4nlhrHZTK5UfQc4ZYa55Y", parse_mode=None)
 
 # for /start and /help commands
 
